@@ -15,5 +15,6 @@ jobs:
        
        - name: Deployment using kubernetes
          run: |
+           kubectl delete deployment gagan-deployment
            kubectl apply -f deployment.yml
            kubectl get deployment
