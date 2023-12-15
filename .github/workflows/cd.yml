@@ -1,20 +1,13 @@
 # Workflow to deploy the artifacts
 name: cd
-on:
-  workflow_run:
-    workflows: ["ci"]
-    types:
-      - completed
+on: push
 
 jobs:
   deploy:
     runs-on: self-hosted
-    environment: prod
     steps:
        - uses: actions/checkout@v4.1.1
        
        - name: Deployment using kubernetes
          run: |
-           kubectl delete deployment gagan-deployment
-           kubectl apply -f deployment.yml
-           kubectl get deployment
+           sudo ansible-playbook -i /root/inv play.yml
